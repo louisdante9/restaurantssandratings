@@ -16,7 +16,9 @@ app.use(
 );
 
 app.use('/api/v1', routes(express));
+app.get('/', (req, res) => res.send('welcome to restaurants and ratings api'))
 app.use(globalErrorHandler);
+app.get('*', (req, res) => res.send({ err: 'route not found' }))
 
 app.listen(port, (err) => {
   if (err) {
