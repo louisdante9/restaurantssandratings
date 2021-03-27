@@ -1,17 +1,16 @@
-import Validator from 'validator'
+//const { default: validator } = require('validator');
+const Validator = require('validator')
 import isEmpty from 'is-empty'
 
-const loginValidator = (data)=>{
+export const loginValidator = (data)=>{
     let errors = {}
-    data.email = !isEmpty(data.email) ? data.email: ''
+    data.userName = !isEmpty(data.userName) ? data.userName: ''
     data.password = !isEmpty(data.password) ? data.password:''
 
-    if(Validator.isEmpty(data.email)) {
-        errors.email = 'Email is required'
+    if(Validator.isEmpty(data.userName)) {
+        errors.userName = 'Username is required'
     }
-    if(!Validator.isEmail(data.email)) {
-        errors.email = 'Email is Invalid'
-    }
+   
     if(Validator.isEmpty(data.password)) {
         errors.password = 'Password is required'
     }
@@ -20,4 +19,3 @@ const loginValidator = (data)=>{
         isValid: isEmpty(errors)
     }
 }
-module.exports = loginValidator

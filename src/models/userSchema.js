@@ -31,6 +31,12 @@ userName: {
 profilePic:{
     type: String
 },
+resetPasswordToken:{
+    type: String
+},
+resetPasswordTokenExpires:{
+    type: String
+},
 timestamps: {
    type: Date,
    default: Date.now()

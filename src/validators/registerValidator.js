@@ -45,6 +45,9 @@ if(!Validator.isLength(data.lastName, {min:2, max:10})){
 if(!Validator.isEmail(data.email)) {
     errors.email = 'Email is invalid';
 }
+if(!Validator.isLowercase(data.email)) {
+    errors.email = 'Email must be in lowercase';
+}
 if (!Validator.isLength(data.userName, {min:5, max:30})){
     errors.userName = "UserName must be at least 5 character"
 }
