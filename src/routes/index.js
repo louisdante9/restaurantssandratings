@@ -39,4 +39,3 @@ export const routes = ({ Router }) => {
   router.post('/reset/:token', AsyncWrapper(resetPassword))            
   return router;
 };
-   
