@@ -4,7 +4,7 @@ const Validator = require('validator')
 
 import isEmpty from 'is-empty'
 
-const registerValidator = (data)=> {
+ export const registerValidator = (data)=> {
     let errors = {}
     data.firstName = !isEmpty(data.firstName) ? data.firstName: ''
     data.lastName = !isEmpty(data.lastName) ? data.lastName: ''
@@ -72,4 +72,48 @@ return {
     isValid:isEmpty(errors)
 }
 }
-module.exports = registerValidator 
+
+export const resetValidator = (data) => {
+   let errors = {}
+  // data.token = !isEmpty(data.token) ? data.token: ''
+  // data.email = !isEmpty(data.email) ? data.email: ''
+   data.password = !isEmpty(data.password) ? data.password: '' 
+   data.passwordConfirm = !isEmpty(data.passwordConfirm) ? data.passwordConfirm: '' 
+
+  /* if(Validator.isEmpty(data.token)){
+       errors.token = "Token is required"
+   }*/
+
+  /* if(Validator.isEmpty(data.email)){
+    errors.email = "Email is required"
+}*/
+
+   if(Validator.isEmpty(data.password)){
+    errors.password = "Password is required"
+}
+if(Validator.isEmpty(data.passwordConfirm)){
+    errors.passwordConfirm = " Confirm Password is required"
+}
+
+/*if(!Validator.isEmail(data.email)) {
+    errors.email = 'Email is invalid';
+}*/
+/*if(!Validator.isLowercase(data.email)) {
+    errors.email = 'Email must be in lowercase';
+}*/
+
+if(!Validator.isStrongPassword(data.password)){
+    errors.password = "Password must be at least 8 character  containing at least 1 lowercase, uppercase, symbols  "
+}
+if(!Validator.isStrongPassword(data.passwordConfirm)){
+    errors.passwordConfirm = " Confirm Password must be at least 8 character  containing at least 1 lowercase, uppercase, symbols  "
+}
+if(!Validator.equals(data.password, data.passwordConfirm)) {
+   errors.passwordConfirm = 'Password and Confirm Password must match';
+}
+return {
+    errors,
+    isValid:isEmpty(errors)
+}
+
+}

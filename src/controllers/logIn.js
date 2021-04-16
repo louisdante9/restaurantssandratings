@@ -52,3 +52,37 @@ export const login = (req, res) => {
         });
       });
 }
+
+
+export const deleteUser = (req, res) => {
+  const {errors, isValid} = loginValidator(req.body)
+  
+  const userName = req.body.userName
+  const password = req.body.password
+
+if (!isValid) {
+   return res.status(400).json(errors);
+}
+User.findOneAndDelete({userName
+} ).then(user => {
+   if (!user) {
+    return   res.status(402).json({
+           email: 'user not in database'
+       })
+    }
+    else {
+      bcrypt.compare(password, user.password).then(isMatch => {
+        if (isMatch) {
+          res.status(402).json({
+            user: 'User is deleted'
+        })
+        }
+        else {
+          return res
+          .status(400)
+          .json({ password: "Password incorrect" });
+        }
+      })
+    }
+})
+}

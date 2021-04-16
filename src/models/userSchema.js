@@ -31,18 +31,18 @@ userName: {
 profilePic:{
     type: String
 },
-resetPasswordToken:{
-    type: String
-},
-resetPasswordTokenExpires:{
-    type: String
-},
-timestamps: {
-   type: Date,
-   default: Date.now()
+resetPasswordToken: {
+    type: String,
+    required: false
 },
 
-})
+resetPasswordExpires: {
+    type: Date,
+    required: false
+}
+},
+{timestamps: true}
+)
 const User = mongoose.model ('users', userSchema)
 
 module.exports = User

@@ -3,7 +3,7 @@ import gravatar from 'gravatar'
 import bcrypt from 'bcrypt'
 
 import User from '../models/userSchema'
-import registerValidator from '../validators/registerValidator'
+import {registerValidator, PasswordValidator }from '../validators/registerValidator'
 
 
 
@@ -44,6 +44,7 @@ export const signup = (req, res) => {
                     phoneNumber: req.body.phoneNumber,
                     password: req.body.password,
                     profilePic,
+                    
                 })
       
                 bcrypt.genSalt(10, (err, salt) => {
@@ -74,3 +75,38 @@ export const signup = (req, res) => {
 
 }
 
+
+
+export const changePassword = (req, res) => {
+    const {errors, isValid} = PasswordValidator(req.body)
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+const resetPasswordToken = req.body.resetPasswordToken
+const password = req.body.password
+    User.findOneAndUpdate({resetPasswordToken
+    }, {password} ).
+    then(user =>{
+        if(!user) {
+     return       res.status(400).json({
+                resetPasswordToken: "Token may have expired or invalid Token"
+            })
+            }
+        
+
+            else {
+                bcrypt.genSalt(10, (err, salt) => {
+                    if (err) console.error('There was an error', err);
+                    else {
+                        bcrypt.hash(password, salt, (err, hash) => {
+                            if (err) console.error('There was an error', err);
+                            else {
+                                password = hash;
+                                res.status(200).json ('password changed')
+                            }
+                         }
+                         ) } 
+                    })
+            }
+    })
+}
